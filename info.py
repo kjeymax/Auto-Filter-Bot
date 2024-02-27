@@ -47,7 +47,7 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Files')
 SUPPORT_LINK = environ.get('SUPPORT_LINK', 'https://t.me/hdonghuagroup')
 OWNER_USERNAME = environ.get("OWNER_USERNAME", "https://t.me/kmac07")
 UPDATES_LINK = environ.get('UPDATES_LINK', 'https://t.me/h_donghua')
-FILMS_LINK = environ.get('FILMS_LINK', 'https://t.me/HA_Films_World')
+FILMS_LINK = environ.get('FILMS_LINK', 'https://t.me/h_donghua')
 TUTORIAL = environ.get("TUTORIAL", "https://t.me/lkhitech")
 VERIFY_TUTORIAL = environ.get("VERIFY_TUTORIAL", "https://t.me/lkhitech")
 
@@ -87,7 +87,7 @@ if len(BIN_CHANNEL) == 0:
     exit()
 else:
     BIN_CHANNEL = int(BIN_CHANNEL)
-URL = environ.get("URL", "https://t.me/LkMirrorbot")
+URL = environ.get("URL", "https://t.me/HD_CLOUD_FILTER_BOT")
 if len(URL) == 0:
     print('Error - URL is missing, exiting now')
     exit()

@@ -21,8 +21,6 @@ DATABASE_URL = credentials["DATABASE_URL"]
 
 
 
-
-
 def is_enabled(type, value):
     data = environ.get(type, str(value))
     if data.lower() in ["true", "yes", "1", "enable", "y"]:
@@ -46,12 +44,12 @@ DATABASE_NAME = environ.get('DATABASE_NAME', "Cluster0")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Files')
 
 # Links
-SUPPORT_LINK = environ.get('SUPPORT_LINK', 'https://t.me/HA_Bots_Support')
-OWNER_USERNAME = environ.get("OWNER_USERNAME", "https://t.me/Hansaka_Anuhas")
-UPDATES_LINK = environ.get('UPDATES_LINK', 'https://t.me/HA_Bots')
+SUPPORT_LINK = environ.get('SUPPORT_LINK', 'https://t.me/hdonghuagroup')
+OWNER_USERNAME = environ.get("OWNER_USERNAME", "https://t.me/kmac07")
+UPDATES_LINK = environ.get('UPDATES_LINK', 'https://t.me/h_donghua')
 FILMS_LINK = environ.get('FILMS_LINK', 'https://t.me/HA_Films_World')
-TUTORIAL = environ.get("TUTORIAL", "https://t.me/HA_Bots")
-VERIFY_TUTORIAL = environ.get("VERIFY_TUTORIAL", "https://t.me/HA_Bots")
+TUTORIAL = environ.get("TUTORIAL", "https://t.me/lkhitech")
+VERIFY_TUTORIAL = environ.get("VERIFY_TUTORIAL", "https://t.me/lkhitech")
 
 # Bot settings
 DELETE_TIME = int(environ.get('DELETE_TIME', 3600)) # Add time in seconds

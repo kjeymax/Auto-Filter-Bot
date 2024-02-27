@@ -12,3 +12,4 @@ aiofiles
 telegraph
 openai
 speedtest-cli
+uvloop

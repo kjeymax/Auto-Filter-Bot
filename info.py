@@ -5,18 +5,21 @@ from os import environ
 from Script import script
 
 # Read the dictionary from the txt file
-with open("/content/Telegram-Leecher/credentials.json", "r") as file:
+with open("/content/Auto-Filter-Bot/credentials.json", "r") as file:
     credentials = json.loads(file.read())
 
 API_ID = credentials["API_ID"]
 API_HASH = credentials["API_HASH"]
 BOT_TOKEN = credentials["BOT_TOKEN"]
-ADMIN = credentials["ADMIN"]
+ADMINS = credentials["ADMINS"]
 LOG_CHANNEL = credentials["LOG_CHANNEL"]
 INDEX_CHANNELS = credentials["INDEX_CHANNELS"]
 SUPPORT_GROUP = credentials["SUPPORT_GROUP"]
+AUTH_CHANNEL = credentials["AUTH_CHANNEL"]
 OPENAI_API = credentials["OPENAI_API"]
 DATABASE_URL = credentials["DATABASE_URL"]
+
+
 
 
 
@@ -74,6 +77,7 @@ AUTO_FILTER = is_enabled('AUTO_FILTER', True)
 IMDB = is_enabled('IMDB', True)
 SPELL_CHECK = is_enabled("SPELL_CHECK", True)
 SHORTLINK = is_enabled('SHORTLINK', False)
+IS_FSUB = is_enabled('IS_FSUB', True)
 
 PAYMENT_QR = environ.get('PAYMENT_QR', 'http://graph.org/file/cacbbea472e5a48ce0d64.jpg')
 
@@ -98,4 +102,3 @@ else:
     else:
         print('Error - URL is not valid, exiting now')
         exit()
-    "DATABASE_URL":DATABASE_URL

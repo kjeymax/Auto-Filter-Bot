@@ -1,5 +1,5 @@
 import re, logging
-from os import environ
+from dotenv import load_dotenv
 from Script import script
 
 def is_enabled(type, value):

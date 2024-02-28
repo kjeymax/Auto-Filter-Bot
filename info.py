@@ -57,7 +57,7 @@ if len(LOG_CHANNEL) == 0:
     exit()
 else:
     LOG_CHANNEL = int(LOG_CHANNEL)
-IS_FSUB = is_enabled('IS_FSUB', True)
+IS_FSUB = is_enabled('IS_FSUB', False)
 
 # support group
 SUPPORT_GROUP = environ.get('SUPPORT_GROUP', '-1002073991261')
@@ -81,12 +81,12 @@ DATABASE_NAME = environ.get('DATABASE_NAME', "Cluster0")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Files')
 
 # Links
-SUPPORT_LINK = environ.get('SUPPORT_LINK', 'https://t.me/HA_Bots_Support')
-OWNER_USERNAME = environ.get("OWNER_USERNAME", "https://t.me/Hansaka_Anuhas")
-UPDATES_LINK = environ.get('UPDATES_LINK', 'https://t.me/HA_Bots')
-FILMS_LINK = environ.get('FILMS_LINK', 'https://t.me/HA_Films_World')
-TUTORIAL = environ.get("TUTORIAL", "https://t.me/HA_Bots")
-VERIFY_TUTORIAL = environ.get("VERIFY_TUTORIAL", "https://t.me/HA_Bots")
+SUPPORT_LINK = environ.get('SUPPORT_LINK', 'https://t.me/hdonghuagroup')
+OWNER_USERNAME = environ.get("OWNER_USERNAME", "https://t.me/kmac07")
+UPDATES_LINK = environ.get('UPDATES_LINK', 'https://t.me/h_donghua')
+FILMS_LINK = environ.get('FILMS_LINK', 'https://t.me/h_donghua')
+TUTORIAL = environ.get("TUTORIAL", "https://t.me/lkhitech")
+VERIFY_TUTORIAL = environ.get("VERIFY_TUTORIAL", "https://t.me/lkhitech")
 
 # Bot settings
 DELETE_TIME = int(environ.get('DELETE_TIME', 3600)) # Add time in seconds
@@ -109,7 +109,7 @@ PROTECT_CONTENT = is_enabled('PROTECT_CONTENT', False)
 LONG_IMDB_DESCRIPTION = is_enabled("LONG_IMDB_DESCRIPTION", False)
 LINK_MODE = is_enabled("LINK_MODE", True)
 AUTO_FILTER = is_enabled('AUTO_FILTER', True)
-IMDB = is_enabled('IMDB', True)
+IMDB = is_enabled('IMDB', False)
 SPELL_CHECK = is_enabled("SPELL_CHECK", True)
 SHORTLINK = is_enabled('SHORTLINK', False)
 
@@ -123,7 +123,7 @@ if len(BIN_CHANNEL) == 0:
     exit()
 else:
     BIN_CHANNEL = int(BIN_CHANNEL)
-URL = environ.get("URL", "https://t.me/LkMirrorbot")
+URL = environ.get("URL", "https://t.me/HD_CLOUD_FILTER_BOT")
 if len(URL) == 0:
     print('Error - URL is missing, exiting now')
     exit()

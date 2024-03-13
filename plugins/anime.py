@@ -17,8 +17,7 @@ query ($id: Int, $idMal:Int, $search: String) {
     episodes
     duration
     countryOfOrigin
-    sourceV1: source (version: 1)
-    sourceV2: source (version: 2)
+    source (version: 2)
     trailer {
       id
       site
@@ -28,18 +27,6 @@ query ($id: Int, $idMal:Int, $search: String) {
       name
     }
     averageScore
-    producers {
-      nodes {
-        name
-      }
-    }
-    source
-    startDate {
-      year
-      month
-      day
-    }
-    native
     relations {
       edges {
         node {
@@ -67,7 +54,6 @@ query ($id: Int, $idMal:Int, $search: String) {
   }
 }
 """
-
 
 ANIME_DB = {}
 
@@ -145,16 +131,13 @@ def get_anilist_data(name):
     genres = data.get("genres")
     averageScore = data.get("averageScore")
     img = f"https://img.anili.st/media/{id_}"
-    source = data.get("source")
-    native_title = title.get("native")
-    start_date = data.get("startDate")
 
     # title
     title1 = title.get("english")
     title2 = title.get("romaji")
 
     if title2 is None:
-        title2 = native_title
+        title2 = title.get("native")
 
     if title1 is None:
         title1 = title2
@@ -172,11 +155,8 @@ def get_anilist_data(name):
 🗓 Episodes : `{}`
 💾 Duration : `{}`
 ⭐️ Rating : `{}/100`
-🔖 Source : `{}`
-🔠 Native : `{}`
-📅 Start Date : `{}`
 """.format(
-        title1, title2, genre, form, status, episodes, duration, averageScore, source, native_title, start_date
+        title1, title2, genre, form, status, episodes, duration, averageScore
     )
 
     if trailer:

@@ -166,13 +166,12 @@ def get_anilist_data(name):
         site = None
 
     if site == "youtube":
-        caption += "\n[Trailer](https://www.youtube.com/watch?v={}) | [More Info](https://anilist.co/anime/{})".format(
+        caption += "\n[HD FanSUB](https://t.me/h_donghua) | [Trailer](https://www.youtube.com/watch?v={}) | [More Info](https://anilist.co/anime/{})".format(
             ytid, id_
         )
     else:
         caption += "\n[More Info](https://anilist.co/anime/{})".format(id_)
-    else:
-        caption += "\n[HD FanSUB](https://t.me/h_donghua)"      
+     
 
     return img, caption
 

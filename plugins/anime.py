@@ -1,7 +1,6 @@
+from pyrogram import Client, filters
+from pyrogram.types import Message
 import requests
-from telegram import Update
-from info import BOT_TOKEN
-from telegram.ext import Updater, CommandHandler, CallbackContext
 
 ANIME_QUERY = """
 query ($id: Int, $idMal:Int, $search: String) {
@@ -176,15 +175,16 @@ def get_anilist_data(name):
     return img, caption
 
 
-# Define a function to handle the /anime command
-def anime_command(update: Update, context: CallbackContext):
-    # Get the anime name or id from the command arguments
-    args = context.args
-    if not args:
-        update.message.reply_text("Please provide the name or id of the anime.")
+# Define a handler function for the /anime command
+@Client.on_message(filters.command('anime'))
+async def anime_command(client, message: Message):
+    # Extract the anime name from the message
+    command = message.text.split(" ", 1)
+    if len(command) != 2:
+        await message.reply_text("Please provide the name or id of the anime.")
         return
 
-    anime_name = " ".join(args)
+    anime_name = command[1]
 
     # Call get_anilist_data to retrieve anime information
     result = get_anilist_data(anime_name)
@@ -193,23 +193,6 @@ def anime_command(update: Update, context: CallbackContext):
     if result:
         img_url, caption = result
         # Send the anime information as a message with an image
-        update.message.reply_photo(photo=img_url, caption=caption, parse_mode='Markdown')
+        await message.reply_photo(photo=img_url, caption=caption, parse_mode='Markdown')
     else:
-        update.message.reply_text("Anime not found or error occurred.")
-
-
-def main():
-    # Set up the Telegram bot
-    updater = Updater("BOT_TOKEN", use_context=True)
-    dp = updater.dispatcher
-
-    # Add a handler for the /anime command
-    dp.add_handler(CommandHandler("anime", anime_command))
-
-    # Start the bot
-    updater.start_polling()
-    updater.idle()
-
-
-if __name__ == '__main__':
-    main()
+        await message.reply_text("Anime not found or error occurred.")

@@ -17,7 +17,8 @@ query ($id: Int, $idMal:Int, $search: String) {
     episodes
     duration
     countryOfOrigin
-    source (version: 2)
+    sourceV1: source (version: 1)
+    sourceV2: source (version: 2)
     trailer {
       id
       site

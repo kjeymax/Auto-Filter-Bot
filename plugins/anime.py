@@ -145,7 +145,6 @@ def get_anilist_data(name):
     genres = data.get("genres")
     averageScore = data.get("averageScore")
     img = f"https://img.anili.st/media/{id_}"
-    producers = data.get("producers")
     source = data.get("source")
     native_title = title.get("native")
     start_date = data.get("startDate")
@@ -163,7 +162,6 @@ def get_anilist_data(name):
     # genre
 
     genre = ", ".join(genres)
-    producers_str = ", ".join(producer.get("name") for producer in producers) if producers else "Unknown"
 
     caption = """
 📺 **{}**
@@ -174,12 +172,11 @@ def get_anilist_data(name):
 🗓 Episodes : `{}`
 💾 Duration : `{}`
 ⭐️ Rating : `{}/100`
-🎬 Producers : `{}`
 🔖 Source : `{}`
 🔠 Native : `{}`
 📅 Start Date : `{}`
 """.format(
-        title1, title2, genre, form, status, episodes, duration, averageScore, producers_str, source, native_title, start_date
+        title1, title2, genre, form, status, episodes, duration, averageScore, source, native_title, start_date
     )
 
     if trailer:

@@ -1,6 +1,14 @@
+# copyright 2024 © KavinduAJ | https://github.com/kjeymax
+
+
 from pyrogram import Client, filters
 from pyrogram.types import Message
 import requests
+from PIL import Image, ImageDraw, ImageFont
+from io import BytesIO
+
+# Define the path to the watermark image
+WATERMARK_PATH ="/content/Auto-Filter-Bot/anilist_watermark.png"
 
 ANIME_QUERY = """
 query ($id: Int, $idMal:Int, $search: String) {
@@ -175,6 +183,28 @@ def get_anilist_data(name):
 
     return img, caption
 
+def add_watermark(image_url):
+    # Download the image from the URL
+    response = requests.get(image_url)
+    if response.status_code != 200:
+        # Handle error if the image couldn't be downloaded
+        return None
+
+    # Open the downloaded image from the response content
+    poster = Image.open(BytesIO(response.content))
+    
+    # Open the watermark image
+    watermark = Image.open(WATERMARK_PATH)
+
+    # Resize watermark image to fit the poster
+    watermark_width = int(poster.width * 0.25)
+    watermark_height = int((watermark_width / watermark.width) * watermark.height)
+    watermark = watermark.resize((watermark_width, watermark_height))
+    
+    # Paste the watermark onto the poster image
+    offset = (poster.width - watermark.width, poster.height - watermark.height)
+    poster.paste(watermark, offset, watermark)
+    return poster
 
 # Define a handler function for the /anime command
 @Client.on_message(filters.command('anime'))
@@ -193,7 +223,17 @@ async def anime_command(client, message: Message):
     # Check if data is retrieved successfully
     if result:
         img_url, caption = result
-        # Send the anime information as a message with an image
-        await message.reply_photo(photo=img_url, caption=caption)
+        # Add watermark to the anime poster
+        img_with_watermark = add_watermark(img_url)
+        if img_with_watermark:
+            # Send the anime information as a message with the watermarked image
+            bio = BytesIO()
+            bio.name = 'image.jpeg'
+            img_with_watermark = img_with_watermark.convert("RGB")
+            img_with_watermark.save(bio, "JPEG")
+            bio.seek(0)
+            await message.reply_photo(photo=bio, caption=caption)
+        else:
+            await message.reply_text("Error adding watermark to the anime poster.")
     else:
         await message.reply_text("Anime not found or error occurred.")

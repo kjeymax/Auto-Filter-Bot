@@ -193,6 +193,6 @@ async def anime_command(client, message: Message):
     if result:
         img_url, caption = result
         # Send the anime information as a message with an image
-        await message.reply_photo(photo=img_url, caption=caption, parse_mode='Markdown')
+        await message.reply_photo(photo=img_url, caption=caption)
     else:
         await message.reply_text("Anime not found or error occurred.")

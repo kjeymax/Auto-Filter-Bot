@@ -1,7 +1,10 @@
 import logging
 from pyrogram.errors import InputUserDeactivated, UserNotParticipant, FloodWait, UserIsBlocked, PeerIdInvalid
 from info import AUTH_CHANNEL, LONG_IMDB_DESCRIPTION
-from imdb import Cinemagoer
+from typing import List, Any, Union, Optional, AsyncGenerator
+from database.users_chats_db import db
+from shortzy import Shortzy
+from tmdbv3api import TMDb, Movie
 import asyncio
 from pyrogram.types import Message, InlineKeyboardButton, ChatJoinRequest
 from pyrogram import enums
@@ -9,11 +12,10 @@ import os
 import pytz
 import time, re
 from datetime import datetime
-from typing import List, Any, Union, Optional, AsyncGenerator
-from database.users_chats_db import db
-from shortzy import Shortzy
 
-imdb = Cinemagoer() 
+# Initialize TMDB API
+tmdb = TMDb()
+tmdb.api_key = 'YOUR_TMDB_API_KEY'  # Replace 'YOUR_TMDB_API_KEY' with your actual TMDB API key
 
 # temp db
 class temp(object):
@@ -59,69 +61,47 @@ async def get_poster(query, bulk=False, id=False, file=None):
                 year = list_to_str(year[:1]) 
         else:
             year = None
-        movieid = imdb.search_movie(title.lower(), results=10)
-        if not movieid:
-            return None
+        
+        # Initialize Movie API
+        movie_api = Movie()
+        search_results = movie_api.search(query)
+
+        # Filter by year if provided
         if year:
-            filtered=list(filter(lambda k: str(k.get('year')) == str(year), movieid))
-            if not filtered:
-                filtered = movieid
-        else:
-            filtered = movieid
-        movieid=list(filter(lambda k: k.get('kind') in ['movie', 'tv series'], filtered))
-        if not movieid:
-            movieid = filtered
+            search_results = [movie for movie in search_results if movie.release_date.split('-')[0] == year]
+
+        if not search_results:
+            return None
+
         if bulk:
-            return movieid
-        movieid = movieid[0].movieID
+            return search_results
+
+        movie_id = search_results[0].id
     else:
-        movieid = query
-    movie = imdb.get_movie(movieid)
-    if movie.get("original air date"):
-        date = movie["original air date"]
-    elif movie.get("year"):
-        date = movie.get("year")
-    else:
-        date = "N/A"
-    plot = ""
-    if not LONG_IMDB_DESCRIPTION:
-        plot = movie.get('plot')
-        if plot and len(plot) > 0:
-            plot = plot[0]
-    else:
-        plot = movie.get('plot outline')
+        movie_id = query
+
+    movie = movie_api.details(movie_id)
+
+    # Constructing the poster URL
+    base_url = tmdb.images_uri
+    poster_path = movie.poster_path
+    poster_url = f"{base_url}w500{poster_path}" if poster_path else None
+
+    # Gathering other movie details
+    release_date = movie.release_date
+    plot = movie.overview
     if plot and len(plot) > 800:
-        plot = plot[0:800] + "..."
+        plot = plot[:800] + "..."
 
     return {
-        'title': movie.get('title'),
-        'votes': movie.get('votes'),
-        "aka": list_to_str(movie.get("akas")),
-        "seasons": movie.get("number of seasons"),
-        "box_office": movie.get('box office'),
-        'localized_title': movie.get('localized title'),
-        'kind': movie.get("kind"),
-        "imdb_id": f"tt{movie.get('imdbID')}",
-        "cast": list_to_str(movie.get("cast")),
-        "runtime": list_to_str(movie.get("runtimes")),
-        "countries": list_to_str(movie.get("countries")),
-        "certificates": list_to_str(movie.get("certificates")),
-        "languages": list_to_str(movie.get("languages")),
-        "director": list_to_str(movie.get("director")),
-        "writer":list_to_str(movie.get("writer")),
-        "producer":list_to_str(movie.get("producer")),
-        "composer":list_to_str(movie.get("composer")) ,
-        "cinematographer":list_to_str(movie.get("cinematographer")),
-        "music_team": list_to_str(movie.get("music department")),
-        "distributors": list_to_str(movie.get("distributors")),
-        'release_date': date,
-        'year': movie.get('year'),
-        'genres': list_to_str(movie.get("genres")),
-        'poster': movie.get('full-size cover url'),
+        'title': movie.title,
+        'release_date': release_date,
         'plot': plot,
-        'rating': str(movie.get("rating")),
-        'url':f'https://www.imdb.com/title/tt{movieid}'
+        'poster': poster_url,
+        'url': f'https://www.themoviedb.org/movie/{movie_id}'
     }
+
+# Other functions remain the same...
 
 
 async def is_check_admin(bot, chat_id, user_id):

@@ -4,7 +4,6 @@ from info import AUTH_CHANNEL, LONG_IMDB_DESCRIPTION
 from typing import List, Any, Union, Optional, AsyncGenerator
 from database.users_chats_db import db
 from shortzy import Shortzy
-from tmdbv3api import TMDb, Movie
 import asyncio
 from pyrogram.types import Message, InlineKeyboardButton, ChatJoinRequest
 from pyrogram import enums
@@ -46,62 +45,6 @@ async def is_subscribed(bot, query, channel):
         except Exception as e:
             pass
     return btn
-
-async def get_poster(query, bulk=False, id=False, file=None):
-    if not id:
-        query = (query.strip()).lower()
-        title = query
-        year = re.findall(r'[1-2]\d{3}$', query, re.IGNORECASE)
-        if year:
-            year = list_to_str(year[:1])
-            title = (query.replace(year, "")).strip()
-        elif file is not None:
-            year = re.findall(r'[1-2]\d{3}', file, re.IGNORECASE)
-            if year:
-                year = list_to_str(year[:1]) 
-        else:
-            year = None
-        
-        # Initialize Movie API
-        movie_api = Movie()
-        search_results = movie_api.search(query)
-
-        # Filter by year if provided
-        if year:
-            search_results = [movie for movie in search_results if movie.release_date.split('-')[0] == year]
-
-        if not search_results:
-            return None
-
-        if bulk:
-            return search_results
-
-        movie_id = search_results[0].id
-    else:
-        movie_id = query
-
-    movie = movie_api.details(movie_id)
-
-    # Constructing the poster URL
-    base_url = tmdb.images_uri
-    poster_path = movie.poster_path
-    poster_url = f"{base_url}w500{poster_path}" if poster_path else None
-
-    # Gathering other movie details
-    release_date = movie.release_date
-    plot = movie.overview
-    if plot and len(plot) > 800:
-        plot = plot[:800] + "..."
-
-    return {
-        'title': movie.title,
-        'release_date': release_date,
-        'plot': plot,
-        'poster': poster_url,
-        'url': f'https://www.themoviedb.org/movie/{movie_id}'
-    }
-
-# Other functions remain the same...
 
 
 async def is_check_admin(bot, chat_id, user_id):

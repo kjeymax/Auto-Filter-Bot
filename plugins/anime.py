@@ -157,12 +157,13 @@ def get_anilist_data(name):
     caption = """
 📺 **{}**
   ({})
-🎭 Genre : `{}`
-🧬 Type : `{}`
-📡 Status : `{}`
-🗓 Episodes : `{}`
-💾 Duration : `{}`
-⭐️ Rating : `{}/100`
+🎭 *Genre* : `{}`
+🧬 *Type* : `{}`
+📡 *Status* : `{}`
+🗓 *Episodes* : `{}`
+💾 *Duration* : `{}`
+⭐️ *Rating* : `{}/100`
+🎞 *Format* : `4K/FHD`
 """.format(
         title1, title2, genre, form, status, episodes, duration, averageScore
     )

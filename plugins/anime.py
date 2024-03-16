@@ -155,15 +155,17 @@ def get_anilist_data(name):
     genre = ", ".join(genres)
 
     caption = """
-📺 **{}**
-  ({})
-🎭 *Genre* : `{}`
-🧬 *Type* : `{}`
-📡 *Status* : `{}`
-🗓 *Episodes* : `{}`
-💾 *Duration* : `{}`
-⭐️ *Rating* : `{}/100`
-🎞 *Format* : `4K/FHD`
+📺 **{}** **({})**\n
+
+╭🎭 Genre : `{}`
+├🧬 Type : `{}`
+├📡 Status : `{}`
+├🗓 Episodes : `{}`
+├💾 Duration : `{}`
+├⭐️ Rating : `{}/100`
+├🎞 Format : `4K/FHD`
+├☁️ Source » `HD Cloud`
+╰📤 Upload »  @h_donghua
 """.format(
         title1, title2, genre, form, status, episodes, duration, averageScore
     )
@@ -179,7 +181,7 @@ def get_anilist_data(name):
             ytid, id_
         )
     else:
-        caption += "\n[HD FanSUB](https://t.me/h_donghua) | [More Info](https://anilist.co/anime/{})".format(id_)
+        caption += "\n[More Info](https://anilist.co/anime/{})".format(id_)
      
 
     return img, caption

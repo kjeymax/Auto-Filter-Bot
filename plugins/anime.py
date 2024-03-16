@@ -156,7 +156,6 @@ def get_anilist_data(name):
 
     caption = """
 📺 **{}** **({})**\n
-
 ╭🎭 Genre » `{}`
 ├🧬 Type » `{}`
 ├📡 Status » `{}`

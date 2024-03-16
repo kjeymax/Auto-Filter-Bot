@@ -157,13 +157,14 @@ def get_anilist_data(name):
     caption = """
 📺 **{}** **({})**\n
 
-╭🎭 Genre : `{}`
-├🧬 Type : `{}`
-├📡 Status : `{}`
-├🗓 Episodes : `{}`
-├💾 Duration : `{}`
-├⭐️ Rating : `{}/100`
-├🎞 Format : `4K/FHD`
+╭🎭 Genre » `{}`
+├🧬 Type » `{}`
+├📡 Status » `{}`
+├🗓 Episodes » `{}`
+├💾 Duration » `{}`
+├⭐️ Rating » `{}/100`
+├🎞 Format » `4K/FHD`
+├🎬 Episode » 
 ├☁️ Source » `HD Cloud`
 ╰📤 Upload »  @h_donghua
 """.format(

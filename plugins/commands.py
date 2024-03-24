@@ -393,7 +393,6 @@ File Caption: {settings['caption']}
 
 Welcome Text: {settings['welcome_text']}
 
-Tutorial Link: {settings['tutorial']}
 
 Force Channels: {str(settings['fsub'])[1:-1] if settings['fsub'] else 'Not Set'}"""
 

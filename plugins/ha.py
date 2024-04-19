@@ -8,7 +8,7 @@ from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
 
 # Define the path to the watermark image
-WATERMARK_PATH ="/content/Auto-Filter-Bot/anilist_watermark.png"
+WATERMARK_PATH ="/content/Auto-Filter-Bot/hawatermark.png"
 
 ANIME_QUERY = """
 query ($id: Int, $idMal:Int, $search: String) {

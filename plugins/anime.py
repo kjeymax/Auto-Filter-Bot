@@ -165,7 +165,7 @@ def get_anilist_data(name):
 ├🎞 Format » `4K/FHD`
 ├🎬 Episode »
 ├💬 Sub » [HD Official Bot](https://t.me/HDonghuaOfficial_Bot)
-├☁️ Source » [HD Cloud](https://t.me/HD_Cloud_M)
+├☁️ Source » [HD Cloud](https://t.me/HD_FANSUB)
 ╰📤 Upload »  [H-Donghua](https://t.me/h_donghua)
 """.format(
         title1, title2, genre, form, status, episodes, duration, averageScore

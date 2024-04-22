@@ -50,7 +50,7 @@ DATABASE_NAME = environ.get('DATABASE_NAME', "Cluster0")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Files')
 
 # Links
-SUPPORT_LINK = environ.get('SUPPORT_LINK', 'https://t.me/hdonghuagroup')
+SUPPORT_LINK = environ.get('SUPPORT_LINK', 'https://t.me/HD_FANSUB')
 OWNER_USERNAME = environ.get("OWNER_USERNAME", "https://t.me/kmac07")
 UPDATES_LINK = environ.get('UPDATES_LINK', 'https://t.me/h_donghua')
 FILMS_LINK = environ.get('FILMS_LINK', 'https://t.me/h_donghua')
